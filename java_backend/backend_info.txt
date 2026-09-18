@@ -1,0 +1,2 @@
+This is the folder where the backend of this project exists.
+Any change related to the backend should be made here
