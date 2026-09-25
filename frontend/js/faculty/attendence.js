@@ -51,8 +51,11 @@ document.addEventListener("DOMContentLoaded", () => {
 function initAttendancePage() {
     const dateInput = document.getElementById("selectAttendanceDate");
     if (dateInput) {
-        const today = new Date().toISOString().split("T")[0];
-        dateInput.value = today;
+        const today = new Date();
+        const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+            .toISOString()
+            .split("T")[0];
+        dateInput.value = localDate;
     }
 
     const urlParams = new URLSearchParams(window.location.search);
