@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMS - Admin Dashboard | Manage Subjects</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/admin.css">
+</head>
+<body class="app-shell">
+
+    <!-- Top Navigation Bar -->
+    <header class="top-navbar">
+        <div class="nav-left">
+            <a href="../../index.html" class="brand-logo-wrap" style="text-decoration: none;">
+                <div class="brand-icon">C</div>
+                <div class="brand-text">
+                    <h2>CAMS</h2>
+                    <span>College Attendance Management System</span>
+                </div>
+            </a>
+            <span class="portal-badge">ADMIN DASHBOARD</span>
+        </div>
+
+        <nav class="nav-center-links">
+            <a href="dashboard.html" class="nav-link">Overview</a>
+            <a href="faculty.html" class="nav-link">Faculty</a>
+            <a href="students.html" class="nav-link">Students</a>
+            <a href="subjects.html" class="nav-link active">Subjects</a>
+        </nav>
+
+        <div class="nav-right">
+            <div class="user-profile-badge">
+                <div class="user-avatar-circle" title="Administrator">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <div class="user-meta">
+                    <div class="name" data-user-name>Administrator</div>
+                    <div class="role-dept" data-user-dept>Academic Affairs</div>
+                </div>
+            </div>
+            <button class="logout-btn" data-action="logout" data-redirect="../login.html" title="Sign out of portal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-content">
+        <!-- Subheader -->
+        <div class="dashboard-header-row">
+            <div>
+                <span class="portal-tag"><span class="dot"></span> Curriculum Modules</span>
+                <h1 class="dashboard-title">Subject Management</h1>
+                <p class="dashboard-subtitle">Configure courses, assign faculty instructors, and regulate term rosters.</p>
+            </div>
+            <button class="btn btn-primary" id="openAddSubjectModal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Add Course Module
+            </button>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="table-filter-bar">
+            <div class="filter-group">
+                <div class="input-wrapper" style="width: 280px;">
+                    <span class="input-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </span>
+                    <input
+                        type="text"
+                        class="form-control has-icon-left"
+                        id="subjectSearchInput"
+                        placeholder="Search by code, subject name, faculty..."
+                    >
+                </div>
+
+                <select class="form-control" id="subjectDeptFilter" style="width: 180px;">
+                    <option value="">All Departments</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Electronics & Comm">Electronics &amp; Comm</option>
+                    <option value="Information Tech">Information Tech</option>
+                    <option value="Mechanical Eng">Mechanical Eng</option>
+                </select>
+
+                <select class="form-control" id="subjectSemFilter" style="width: 140px;">
+                    <option value="">All Semesters</option>
+                    <option value="Semester 4">Semester 4</option>
+                    <option value="Semester 6">Semester 6</option>
+                </select>
+            </div>
+
+            <div class="text-sm text-muted">
+                Showing <strong id="subjectResultCount">0</strong> curriculum subjects
+            </div>
+        </div>
+
+        <!-- Subjects Data Table -->
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Subject Code</th>
+                        <th>Subject Name</th>
+                        <th>Department</th>
+                        <th>Semester</th>
+                        <th>Assigned Faculty</th>
+                        <th>Enrolled Students</th>
+                        <th style="text-align: right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="subjectTableBody">
+                    <!-- Populated dynamically by js/admin/subjects.js -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal: Add / Edit Subject -->
+    <div class="modal-overlay" id="subjectModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalSubjectTitle">Add Subject Module</h3>
+                <button class="modal-close-btn" id="closeSubjectModal">&times;</button>
+            </div>
+            <form id="subjectForm">
+                <div class="modal-body">
+                    <div style="display: flex; gap: 1rem;">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label" for="formSubjectCode">Course Code</label>
+                            <input type="text" class="form-control" id="formSubjectCode" placeholder="e.g. CS501" required>
+                        </div>
+                        <div class="form-group" style="flex: 2;">
+                            <label class="form-label" for="formSubjectName">Subject Title</label>
+                            <input type="text" class="form-control" id="formSubjectName" placeholder="e.g. Operating Systems" required>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label" for="formSubjectDept">Department</label>
+                            <select class="form-control" id="formSubjectDept" required>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Electronics & Comm">Electronics &amp; Comm</option>
+                                <option value="Information Tech">Information Tech</option>
+                                <option value="Mechanical Eng">Mechanical Eng</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label" for="formSubjectSem">Semester</label>
+                            <select class="form-control" id="formSubjectSem" required>
+                                <option value="Semester 4">Semester 4</option>
+                                <option value="Semester 6">Semester 6</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="formSubjectFaculty">Assign Instructor / Faculty</label>
+                        <select class="form-control" id="formSubjectFaculty" required>
+                            <option value="Dr. Rajesh Sharma">Dr. Rajesh Sharma</option>
+                            <option value="Prof. Sunita Rao">Prof. Sunita Rao</option>
+                            <option value="Dr. Vikram Mehta">Dr. Vikram Mehta</option>
+                            <option value="Prof. Priya Iyer">Prof. Priya Iyer</option>
+                            <option value="Dr. Amit Patel">Dr. Amit Patel</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="formSubjectEnrollment">Initial Enrolled Students</label>
+                        <input type="number" class="form-control" id="formSubjectEnrollment" placeholder="e.g. 60" value="60" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" id="cancelSubjectModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Save Subject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="confirmDeleteSubjectModal">
+        <div class="modal-card" style="max-width: 420px;">
+            <div class="modal-header">
+                <h3>Confirm Deletion</h3>
+                <button class="modal-close-btn" id="closeDeleteSubjectModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove subject <strong id="deleteTargetSubjectName"></strong>? All student enrollments for this module will be detached.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" id="cancelDeleteSubjectBtn">Cancel</button>
+                <button type="button" class="btn btn-danger btn-sm" id="confirmDeleteSubjectBtn">Delete Subject</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/admin/subjects.js"></script>
+</body>
+</html>

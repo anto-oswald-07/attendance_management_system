@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMS - Student Portal | Attendance Ledger &amp; History</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/student.css">
+</head>
+<body class="app-shell">
+
+    <!-- Top Navigation Bar -->
+    <header class="top-navbar">
+        <div class="nav-left">
+            <a href="../../index.html" class="brand-logo-wrap" style="text-decoration: none;">
+                <div class="brand-icon">C</div>
+                <div class="brand-text">
+                    <h2>CAMS</h2>
+                    <span>College Attendance Management System</span>
+                </div>
+            </a>
+            <span class="portal-badge">STUDENT PORTAL</span>
+            <div style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
+                <span>Academic Session 2024&ndash;25</span>
+                <span>&gt;</span>
+                <span style="color: var(--text-primary); font-weight: 600;">Attendance Audit Log</span>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <div class="user-profile-badge">
+                <div class="user-avatar-circle" title="Student Profile">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <div class="user-meta">
+                    <div class="name" data-user-name>Rohan Verma</div>
+                    <div class="role-dept">
+                        <span data-user-id>21CSE042</span> &bull; <span data-user-dept>Computer Engineering</span>
+                    </div>
+                </div>
+            </div>
+            <button class="logout-btn" data-action="logout" data-redirect="../login.html" title="Sign out of portal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Shell Layout with Sidebar -->
+    <div class="layout-container">
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar">
+            <div>
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">
+                        <a href="dashboard.html">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="sidebar-item active">
+                        <a href="attendance.html">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3L22 4"></path>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg>
+                            My Attendance
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#history">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            Lecture History
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="javascript:void(0)" id="studentLeaveLink">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="12" y1="18" x2="12" y2="12"></line>
+                                <line x1="9" y1="15" x2="15" y2="15"></line>
+                            </svg>
+                            Leave / Medical
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <span class="institution-label">Institution</span>
+                <span class="institution-val">Faculty of Engineering &amp; Tech</span>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header Row -->
+            <div class="dashboard-header-row">
+                <div>
+                    <span class="portal-tag"><span class="dot"></span> Academic Records</span>
+                    <h1 class="dashboard-title">Attendance Records &amp; Audit Log</h1>
+                    <p class="dashboard-subtitle">Complete subject-wise compliance statistics and session-by-session history.</p>
+                </div>
+                <button type="button" class="btn btn-outline" id="btnPrintReport">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <rect x="6" y="14" width="12" height="8"></rect>
+                    </svg>
+                    Print Audit Statement
+                </button>
+            </div>
+
+            <!-- Subject-Wise Compliance Breakdown Table -->
+            <div class="section-header">
+                <h2 class="section-title">Course-Wise Summary</h2>
+                <span class="section-hint">Minimum required: 75.0%</span>
+            </div>
+
+            <div class="table-responsive" style="margin-bottom: 2.5rem;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Course Module</th>
+                            <th>Instructor</th>
+                            <th>Total Classes</th>
+                            <th>Attended</th>
+                            <th>Missed</th>
+                            <th>Percentage</th>
+                            <th>Compliance Status</th>
+                            <th>Safe Margin</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentSummaryTableBody">
+                        <!-- Populated dynamically by js/student/attendance.js -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Date-Wise Attendance History Section -->
+            <div class="section-header" id="history">
+                <div>
+                    <h2 class="section-title">Date-Wise Attendance History</h2>
+                    <span class="section-hint">Chronological verification log for every lecture session.</span>
+                </div>
+            </div>
+
+            <!-- History Toolbar & Filters -->
+            <div class="table-filter-bar">
+                <div class="filter-group">
+                    <select class="form-control" id="historySubjectFilter" style="width: 220px;">
+                        <option value="">All Courses</option>
+                        <option value="CS301">CS301 - Data Structures</option>
+                        <option value="CS402">CS402 - Java Programming</option>
+                        <option value="CS601">CS601 - Database Management</option>
+                        <option value="CS501">CS501 - Operating Systems</option>
+                    </select>
+
+                    <select class="form-control" id="historyStatusFilter" style="width: 140px;">
+                        <option value="">All Statuses</option>
+                        <option value="P">Present Only</option>
+                        <option value="A">Absent Only</option>
+                    </select>
+                </div>
+
+                <div class="text-sm text-muted">
+                    Showing <strong id="historyRecordCount">0</strong> logged lecture sessions
+                </div>
+            </div>
+
+            <!-- History Data Table -->
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Course Module</th>
+                            <th>Time Window</th>
+                            <th>Faculty Member</th>
+                            <th>Recorded Status</th>
+                            <th>Remarks / Note</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentHistoryTableBody">
+                        <!-- Populated dynamically by js/student/attendance.js -->
+                    </tbody>
+                </table>
+
+                <div class="pagination-wrapper">
+                    <div>Showing academic semester session history</div>
+                    <div class="pagination-controls">
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); font-size: 0.8rem; color: var(--text-muted); text-align: center;">
+                CAMS &bull; College Attendance Management System &bull; 2025
+            </footer>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/student/attendance.js"></script>
+</body>
+</html>

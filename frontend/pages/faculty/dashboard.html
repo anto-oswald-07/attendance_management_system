@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMS - Faculty Portal | Dashboard</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/faculty.css">
+</head>
+<body class="app-shell">
+
+    <!-- Top Navigation Bar Matching Faculty Reference -->
+    <header class="top-navbar">
+        <div class="nav-left">
+            <a href="../../index.html" class="brand-logo-wrap" style="text-decoration: none;">
+                <div class="brand-icon">C</div>
+                <div class="brand-text">
+                    <h2>CAMS</h2>
+                    <span>College Attendance Management System</span>
+                </div>
+            </a>
+            <span class="portal-badge">FACULTY PORTAL</span>
+            <div style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
+                <span>Academic Year 2024&ndash;25</span>
+                <span>&gt;</span>
+                <span style="color: var(--text-primary); font-weight: 600;">Faculty Session</span>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <div class="user-profile-badge">
+                <div class="user-avatar-circle" title="Faculty Profile">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <div class="user-meta">
+                    <div class="name" data-user-name>Dr. Rajesh Sharma</div>
+                    <div class="role-dept" data-user-dept>Department of Computer Science</div>
+                </div>
+            </div>
+            <button class="logout-btn" data-action="logout" data-redirect="../login.html" title="Sign out of portal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Shell Layout with Sidebar -->
+    <div class="layout-container">
+        <!-- Sidebar Navigation Matching Reference -->
+        <aside class="app-sidebar">
+            <div>
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item active">
+                        <a href="attendance.html">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3L22 4"></path>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg>
+                            Take Attendance
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="subjects.html">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            Class Rosters
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="attendance.html#reports">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                            Attendance Reports
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="subjects.html#shortage">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                                <line x1="12" y1="9" x2="12" y2="13"></line>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                            Shortage Alerts (&lt;75%)
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="javascript:void(0)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            Lecture Schedule
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <span class="institution-label">Institution</span>
+                <span class="institution-val">Faculty of Engineering &amp; Tech</span>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard View -->
+        <main class="main-content">
+            <!-- Header Row with Date Badge -->
+            <div class="dashboard-header-row">
+                <div>
+                    <h1 class="dashboard-title">Welcome, Professor</h1>
+                    <p class="dashboard-subtitle">Manage attendance for your assigned subjects.</p>
+                </div>
+                <div class="academic-term-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-color);">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <div>
+                        <span class="term-value" id="currentFacultySession">Academic Session: 2024&ndash;25 (Odd Sem) &bull; Today: Monday, 24 Feb 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2 Stats Cards Matching Reference -->
+            <section class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                <!-- Assigned Subjects Card -->
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <div class="stat-label">Assigned Subjects</div>
+                        <div class="stat-number" id="facultyAssignedCount">3</div>
+                        <div class="stat-caption">Active courses this semester</div>
+                    </div>
+                    <div class="stat-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Today's Classes Card -->
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <div class="stat-label">Today's Classes</div>
+                        <div class="stat-number" id="facultyClassesToday">2</div>
+                        <div class="stat-caption">Lectures scheduled for today</div>
+                    </div>
+                    <div class="stat-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <!-- My Subjects Section -->
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">My Subjects</h2>
+                    <span class="section-hint">Select a subject to take roll call or review session attendance.</span>
+                </div>
+                <span class="badge badge-gray" id="totalAllocatedPill">3 TOTAL ALLOCATED</span>
+            </div>
+
+            <!-- Subject Cards Grid (Matching Exact Reference Screenshot 4) -->
+            <section class="faculty-subjects-grid">
+                <!-- Card 1: Data Structures -->
+                <div class="faculty-subject-card">
+                    <div>
+                        <div class="subject-card-meta">
+                            <span>CS301 &bull; CSE-A</span>
+                            <span class="student-count-pill">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                </svg>
+                                60
+                            </span>
+                        </div>
+                        <h3 class="subject-card-title">Data Structures</h3>
+                        <div class="subject-slot-info">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-color);">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>Today, 10:00 AM &ndash; 11:00 AM</span>
+                        </div>
+                        <div class="subject-location-row">
+                            <span>Room 302</span>
+                            <span class="badge badge-red" style="background-color: #fef2f2; color: #b91c1c; border-color: #fecaca;">
+                                &bull; Attendance Pending
+                            </span>
+                        </div>
+                    </div>
+                    <div class="subject-card-actions">
+                        <a href="attendance.html?subject=CS301" class="btn btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3L22 4"></path>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg>
+                            Mark Attendance
+                        </a>
+                        <a href="attendance.html?subject=CS301&tab=history" class="view-past-link">
+                            View Past Records &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Java Programming -->
+                <div class="faculty-subject-card">
+                    <div>
+                        <div class="subject-card-meta">
+                            <span>CS402 &bull; CSE-A</span>
+                            <span class="student-count-pill">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                </svg>
+                                60
+                            </span>
+                        </div>
+                        <h3 class="subject-card-title">Java Programming</h3>
+                        <div class="subject-slot-info">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-color);">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>Today, 02:00 PM &ndash; 03:00 PM</span>
+                        </div>
+                        <div class="subject-location-row">
+                            <span>Lab 2 (Systems Lab)</span>
+                            <span class="badge badge-gray">
+                                &bull; Scheduled
+                            </span>
+                        </div>
+                    </div>
+                    <div class="subject-card-actions">
+                        <a href="attendance.html?subject=CS402" class="btn btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3L22 4"></path>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg>
+                            Mark Attendance
+                        </a>
+                        <a href="attendance.html?subject=CS402&tab=history" class="view-past-link">
+                            View Past Records &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Database Management -->
+                <div class="faculty-subject-card">
+                    <div>
+                        <div class="subject-card-meta">
+                            <span>CS601 &bull; CSE-B</span>
+                            <span class="student-count-pill">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                </svg>
+                                64
+                            </span>
+                        </div>
+                        <h3 class="subject-card-title">Database Management</h3>
+                        <div class="subject-slot-info">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--success);">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <span>Completed: 08:30 AM &ndash; 09:30 AM</span>
+                        </div>
+                        <div class="subject-location-row">
+                            <span>Room 401</span>
+                            <span class="badge badge-green">
+                                &check; 90.6% Present
+                            </span>
+                        </div>
+                    </div>
+                    <div class="subject-card-actions">
+                        <a href="attendance.html?subject=CS601" class="btn btn-outline">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            Edit Attendance
+                        </a>
+                        <a href="attendance.html?subject=CS601&tab=history" class="view-past-link">
+                            View Past Records &rarr;
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fast Classroom Attendance Flow Banner Matching Reference -->
+            <div class="attendance-flow-banner">
+                <div class="flow-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-color);">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <polyline points="9 12 11 14 15 10"></polyline>
+                    </svg>
+                    <span>Fast Classroom Attendance Flow</span>
+                </div>
+                <div class="flow-steps-grid">
+                    <div class="flow-step-item">
+                        <div class="flow-step-num">1</div>
+                        <div class="flow-step-content">
+                            <h4>Select Subject</h4>
+                            <p>Pick from your active assigned courses above.</p>
+                        </div>
+                    </div>
+                    <div class="flow-step-item">
+                        <div class="flow-step-num">2</div>
+                        <div class="flow-step-content">
+                            <h4>Confirm Slot</h4>
+                            <p>Verify lecture date and scheduled hour window.</p>
+                        </div>
+                    </div>
+                    <div class="flow-step-item">
+                        <div class="flow-step-num">3</div>
+                        <div class="flow-step-content">
+                            <h4>Mark P / A / L</h4>
+                            <p>Rapid single-tap toggles for each roll number.</p>
+                        </div>
+                    </div>
+                    <div class="flow-step-item">
+                        <div class="flow-step-num">4</div>
+                        <div class="flow-step-content">
+                            <h4>One-Click Submit</h4>
+                            <p>Instant institutional ledger sync and alert update.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer matching reference -->
+            <footer style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); font-size: 0.8rem; color: var(--text-muted); text-align: center;">
+                CAMS &bull; College Attendance Management System &bull; 2025
+            </footer>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/faculty/dashboard.js"></script>
+</body>
+</html>
