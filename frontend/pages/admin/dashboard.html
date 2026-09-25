@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMS - Admin Dashboard | Overview</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/admin.css">
+</head>
+<body class="app-shell">
+
+    <!-- Top Navigation Bar Matching Reference -->
+    <header class="top-navbar">
+        <div class="nav-left">
+            <a href="../../index.html" class="brand-logo-wrap" style="text-decoration: none;">
+                <div class="brand-icon">C</div>
+                <div class="brand-text">
+                    <h2>CAMS</h2>
+                    <span>College Attendance Management System</span>
+                </div>
+            </a>
+            <span class="portal-badge">ADMIN DASHBOARD</span>
+        </div>
+
+        <!-- Center Nav Links -->
+        <nav class="nav-center-links">
+            <a href="dashboard.html" class="nav-link active">Overview</a>
+            <a href="faculty.html" class="nav-link">Faculty</a>
+            <a href="students.html" class="nav-link">Students</a>
+            <a href="subjects.html" class="nav-link">Subjects</a>
+        </nav>
+
+        <!-- Right User Profile & Logout -->
+        <div class="nav-right">
+            <div class="user-profile-badge">
+                <div class="user-avatar-circle" title="Administrator">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <div class="user-meta">
+                    <div class="name" data-user-name>Administrator</div>
+                    <div class="role-dept" data-user-dept>Academic Affairs</div>
+                </div>
+            </div>
+            <button class="logout-btn" data-action="logout" data-redirect="../login.html" title="Sign out of portal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-content">
+        <!-- Subheader & Academic Term Banner -->
+        <div class="dashboard-header-row">
+            <div>
+                <span class="portal-tag"><span class="dot"></span> Institutional Portal</span>
+                <h1 class="dashboard-title">Welcome, Admin</h1>
+                <p class="dashboard-subtitle">Manage students, faculty and subjects.</p>
+            </div>
+            <div class="academic-term-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-color);">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <div>
+                    <span class="term-label">Current Academic Term</span>
+                    <span class="term-value" id="currentAcademicTerm">Fall 2025 &bull; Semester I</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Statistics Grid (3 Columns Matching Reference) -->
+        <section class="stats-grid">
+            <!-- Students Metric Card -->
+            <div class="stat-card">
+                <div class="stat-info">
+                    <div class="stat-label">Students</div>
+                    <div class="stat-number" id="totalStudentsCount">62</div>
+                    <div class="stat-caption">
+                        <span class="status-dot green"></span> Active enrollments
+                    </div>
+                </div>
+                <div class="stat-icon-wrap">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Faculty Metric Card -->
+            <div class="stat-card">
+                <div class="stat-info">
+                    <div class="stat-label">Faculty</div>
+                    <div class="stat-number" id="totalFacultyCount">8</div>
+                    <div class="stat-caption">
+                        <span class="status-dot green"></span> All departments
+                    </div>
+                </div>
+                <div class="stat-icon-wrap">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Subjects Metric Card -->
+            <div class="stat-card">
+                <div class="stat-info">
+                    <div class="stat-label">Subjects</div>
+                    <div class="stat-number" id="totalSubjectsCount">6</div>
+                    <div class="stat-caption">
+                        <span class="status-dot green"></span> Curriculum modules
+                    </div>
+                </div>
+                <div class="stat-icon-wrap">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- System Management Section Header -->
+        <div class="section-header">
+            <h2 class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-color);">
+                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                    <path d="M9 3v18"></path>
+                    <path d="M15 9h6"></path>
+                    <path d="M15 15h6"></path>
+                </svg>
+                System Management
+            </h2>
+            <span class="section-hint">Select an area below to perform standard operations</span>
+        </div>
+
+        <!-- System Management 3-Card Grid Matching Reference -->
+        <section class="admin-action-grid">
+            <!-- 1. Students Operations Card -->
+            <div class="admin-action-card">
+                <div>
+                    <div class="action-card-top">
+                        <div class="action-card-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                            </svg>
+                        </div>
+                        <span class="action-card-tag">ROSTER</span>
+                    </div>
+                    <h3 class="action-card-title">Students</h3>
+                    <p class="action-card-desc">Add and manage college students.</p>
+
+                    <div class="action-ops-box">
+                        <div class="action-ops-label">Available Operations</div>
+                        <ul class="action-ops-list">
+                            <li>Add student</li>
+                            <li>View students</li>
+                            <li>Remove student</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <a href="students.html" class="action-card-btn">
+                    Manage Students &rarr;
+                </a>
+            </div>
+
+            <!-- 2. Faculty Operations Card -->
+            <div class="admin-action-card">
+                <div>
+                    <div class="action-card-top">
+                        <div class="action-card-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                            </svg>
+                        </div>
+                        <span class="action-card-tag">STAFF</span>
+                    </div>
+                    <h3 class="action-card-title">Faculty</h3>
+                    <p class="action-card-desc">Add and manage faculty members.</p>
+
+                    <div class="action-ops-box">
+                        <div class="action-ops-label">Available Operations</div>
+                        <ul class="action-ops-list">
+                            <li>Add faculty</li>
+                            <li>View faculty</li>
+                            <li>Remove faculty</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <a href="faculty.html" class="action-card-btn">
+                    Manage Faculty &rarr;
+                </a>
+            </div>
+
+            <!-- 3. Subjects Operations Card -->
+            <div class="admin-action-card">
+                <div>
+                    <div class="action-card-top">
+                        <div class="action-card-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            </svg>
+                        </div>
+                        <span class="action-card-tag">COURSES</span>
+                    </div>
+                    <h3 class="action-card-title">Subjects</h3>
+                    <p class="action-card-desc">Create subjects and assign faculty.</p>
+
+                    <div class="action-ops-box">
+                        <div class="action-ops-label">Available Operations</div>
+                        <ul class="action-ops-list">
+                            <li>Add subject</li>
+                            <li>Assign faculty to subject</li>
+                            <li>View subjects</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <a href="subjects.html" class="action-card-btn">
+                    Manage Subjects &rarr;
+                </a>
+            </div>
+        </section>
+
+        <!-- Operational Status Banner Matching Reference -->
+        <div class="operational-banner">
+            <div class="message-side">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-color);">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <polyline points="9 12 11 14 15 10"></polyline>
+                </svg>
+                <span>Academic directory updates synchronize instantly with active faculty attendance sheets.</span>
+            </div>
+            <div class="status-side">
+                System Status: <span style="color: var(--success); font-weight: 700;">Operational</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/admin/dashboard.js"></script>
+</body>
+</html>

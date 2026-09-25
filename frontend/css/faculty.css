@@ -1,0 +1,251 @@
+/* ==========================================================================
+   CAMS - College Attendance Management System
+   Faculty Specific Styles (faculty.css)
+   Recreates the exact visual layout from the Faculty Dashboard reference.
+   ========================================================================== */
+
+/* Subject Cards Grid */
+.faculty-subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.25rem;
+}
+
+.faculty-subject-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-xs);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition);
+}
+
+.faculty-subject-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+}
+
+.subject-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.65rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.student-count-pill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.subject-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.85rem;
+}
+
+.subject-slot-info {
+    background-color: #f8fafc;
+    border: 1px solid #edf2f7;
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 0.85rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.subject-location-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.subject-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.subject-card-actions .btn {
+    width: 100%;
+}
+
+.view-past-link {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.view-past-link:hover {
+    text-decoration: underline;
+}
+
+/* Fast Classroom Attendance Flow Banner */
+.attendance-flow-banner {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 1.75rem;
+    margin-top: 1rem;
+    box-shadow: var(--shadow-xs);
+}
+
+.flow-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1.25rem;
+}
+
+.flow-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.flow-step-item {
+    background-color: #f8fafc;
+    border: 1px solid #edf2f7;
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.flow-step-num {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.flow-step-content h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #1e293b;
+}
+
+.flow-step-content p {
+    font-size: 0.775rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+}
+
+/* Attendance Taking Interface Controls */
+.attendance-controls-bar {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.attendance-filters {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.status-counter-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #f8fafc;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.counter-pill {
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.counter-pill.present { color: var(--success); }
+.counter-pill.absent { color: var(--danger); }
+.counter-pill.late { color: var(--warning); }
+
+/* Quick Status Toggle Buttons in Table */
+.status-toggle-group {
+    display: inline-flex;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.status-btn {
+    border: none;
+    background-color: #ffffff;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    border-right: 1px solid var(--border-color);
+}
+
+.status-btn:last-child {
+    border-right: none;
+}
+
+.status-btn.btn-p:hover,
+.status-btn.btn-p.active {
+    background-color: var(--success);
+    color: #ffffff;
+}
+
+.status-btn.btn-a:hover,
+.status-btn.btn-a.active {
+    background-color: var(--danger);
+    color: #ffffff;
+}
+
+.status-btn.btn-l:hover,
+.status-btn.btn-l.active {
+    background-color: var(--warning);
+    color: #ffffff;
+}

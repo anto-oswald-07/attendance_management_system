@@ -1,0 +1,203 @@
+/* ==========================================================================
+   CAMS - College Attendance Management System
+   Student Specific Styles (student.css)
+   Clean, collegiate attendance compliance meters, subject cards & history.
+   ========================================================================== */
+
+/* Overall Attendance Overview Hero Card */
+.student-compliance-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.75rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    box-shadow: var(--shadow-xs);
+    flex-wrap: wrap;
+}
+
+.compliance-info {
+    flex: 1;
+    min-width: 280px;
+}
+
+.compliance-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.compliance-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    line-height: 1.45;
+}
+
+.compliance-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.compliance-meter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 2rem;
+    text-align: center;
+}
+
+.compliance-percentage {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--success);
+    margin-bottom: 4px;
+}
+
+.compliance-percentage.amber { color: var(--warning); }
+.compliance-percentage.red { color: var(--danger); }
+
+.compliance-caption {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+/* Subject-wise Cards Grid */
+.student-subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.student-subject-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-xs);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition);
+}
+
+.student-subject-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.student-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.student-card-code {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    background-color: var(--primary-light);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.student-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 4px;
+}
+
+.student-card-faculty {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+}
+
+/* Progress Bar */
+.attendance-progress-wrap {
+    margin-bottom: 1rem;
+}
+
+.progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 9px;
+    background-color: #e2e8f0;
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: var(--radius-pill);
+    background-color: var(--success);
+    transition: width 0.4s ease;
+}
+
+.progress-bar-fill.amber { background-color: var(--warning); }
+.progress-bar-fill.red { background-color: var(--danger); }
+
+.attendance-stats-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f1f5f9;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.attendance-stats-summary strong {
+    color: var(--text-primary);
+}
+
+/* Date-wise Log Status Badges */
+.history-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 4px;
+}
+
+.history-status-badge.present {
+    background-color: var(--success-bg);
+    color: var(--success);
+}
+
+.history-status-badge.absent {
+    background-color: var(--danger-bg);
+    color: var(--danger);
+}
+
+.history-status-badge.late {
+    background-color: var(--warning-bg);
+    color: var(--warning);
+}

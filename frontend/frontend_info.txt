@@ -1,2 +1,0 @@
-This is the folder where the frontend of this project exists.
-Any change related to the frontend should be made here

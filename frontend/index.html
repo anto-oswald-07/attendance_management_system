@@ -1,126 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CAMS — College Attendance Management System</title>
-  <link rel="icon" href="logo.png" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMS - College Attendance Management System</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        .landing-hero {
+            padding: 5rem 2rem 4rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .hero-badge { margin-bottom: 1.25rem; }
+        .hero-title {
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+        .hero-title span { color: var(--primary-color); }
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.25rem;
+            line-height: 1.6;
+        }
+        .hero-cta-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .portals-preview-section {
+            padding: 3rem 2rem 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .portal-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.75rem;
+            margin-top: 2rem;
+        }
+        .portal-preview-card {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        .portal-preview-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            border-color: var(--primary-border);
+        }
+        .portal-card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 1.25rem;
+        }
+        .portal-card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-md);
+            background-color: #eef5ff;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .features-strip {
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 2.5rem 2rem;
+        }
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .feature-item-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #eef5ff;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- ============ NAVBAR ============ -->
-  <header class="navbar">
-    <a href="index.html" class="brand">
-      <img src="logo.png" alt="CAMS logo" class="brand-logo" />
-      <span class="brand-text">
-        <span class="brand-name">CAMS</span>
-        <span class="brand-sub">College Attendance Management System</span>
-      </span>
-    </a>
-
-    <nav class="nav-links">
-      <!-- Only "About" kept in the top right -->
-      <a href="" class="nav-link">About</a>
-    </nav>
-  </header>
-
-  <!-- ============ MAIN ============ -->
-  <main class="hero">
-    <span class="pill"><span class="pill-dot"></span>ACADEMIC PORTAL</span>
-
-    <h1 class="hero-title">College Attendance, Simplified.</h1>
-    <p class="hero-sub">Manage attendance easily for students, faculty and administrators.</p>
-
-    <!-- ============ ROLE CARDS ============ -->
-    <section class="cards">
-
-      <!-- STUDENT -->
-      <article class="card">git push origin main
-
-        <div class="card-icon">
-          <!-- graduation cap -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 10 12 5 2 10l10 5 10-5Z"/>
-            <path d="M6 12v5c0 1 2.5 2.5 6 2.5s6-1.5 6-2.5v-5"/>
-          </svg>
+    <!-- Landing Navigation -->
+    <header class="top-navbar">
+        <div class="nav-left">
+            <div class="brand-logo-wrap">
+                <div class="brand-icon">C</div>
+                <div class="brand-text">
+                    <h2>CAMS</h2>
+                    <span>College Attendance Management System</span>
+                </div>
+            </div>
+            <span class="portal-badge">Academic Suite</span>
         </div>
-        <h2 class="card-title">Student</h2>
-        <p class="card-text">Check your subject-wise attendance and attendance history.</p>
-        <!-- LINK 1: put student login page URL in href -->
-        <a href="" class="btn">Student Login</a>
-      </article>
-
-      <!-- FACULTY -->
-      <article class="card">
-        <div class="card-icon">
-          <!-- id badge -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="17" rx="2"/>
-            <path d="M9 2h6v3H9z"/>
-            <circle cx="12" cy="11" r="2"/>
-            <path d="M8.5 17.5a3.5 3.5 0 0 1 7 0"/>
-          </svg>
+        <div class="nav-right">
+            <a href="#portals" class="nav-link">Portals</a>
+            <a href="#features" class="nav-link">Features</a>
+            <a href="pages/login.html" class="btn btn-primary btn-sm">
+                Sign In &rarr;
+            </a>
         </div>
-        <h2 class="card-title">Faculty</h2>
-        <p class="card-text">Mark and manage attendance for your assigned subjects.</p>
-        <!-- LINK 2: put faculty login page URL in href -->
-        <a href="" class="btn">Faculty Login</a>
-      </article>
+    </header>
 
-      <!-- ADMIN -->
-      <article class="card">
-        <div class="card-icon">
-          <!-- shield with lock -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
-            <circle cx="12" cy="11" r="1.6"/>
-            <path d="M12 12.6V15"/>
-          </svg>
+    <!-- Main Hero -->
+    <main>
+        <section class="landing-hero">
+            <div class="hero-badge">
+                <span class="badge badge-blue">
+                    <span class="status-dot blue"></span> Academic Operations Division &bull; 2025
+                </span>
+            </div>
+            <h1 class="hero-title">
+                Precision Attendance Management for <span>Higher Education</span>
+            </h1>
+            <p class="hero-subtitle">
+                A unified, modern platform connecting administrators, faculty members, and students.
+                Track classroom attendance with one-tap, monitor real-time eligibility thresholds, and eliminate paper roll calls.
+            </p>
+            <div class="hero-cta-group">
+                <a href="pages/login.html" class="btn btn-primary" style="padding: 0.85rem 1.75rem; font-size: 1rem;">
+                    Launch Institutional Login &rarr;
+                </a>
+                <a href="#portals" class="btn btn-outline" style="padding: 0.85rem 1.5rem; font-size: 1rem;">
+                    Explore Portals
+                </a>
+            </div>
+        </section>
+
+        <!-- Feature Highlight Strip -->
+        <section class="features-strip" id="features">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-item-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 4px;">Rapid Attendance Flow</h4>
+                        <p style="font-size: 0.82rem;">1-tap P / A / L toggles designed for high-density lecture halls and lab sessions.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-item-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 4px;">75% Compliance Alerts</h4>
+                        <p style="font-size: 0.82rem;">Instant automated flags for students falling beneath institutional exam thresholds.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-item-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 4px;">Timetable Synchronization</h4>
+                        <p style="font-size: 0.82rem;">Automatic mapping to active academic terms, semester schedules, and classroom allocations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Role Portals Section -->
+        <section class="portals-preview-section" id="portals">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span class="portal-tag"><span class="dot"></span> Role-Based Architecture</span>
+                <h2 style="font-size: 1.75rem; margin-top: 4px;">Select Your Institutional Portal</h2>
+                <p>Every role is equipped with dedicated workflows tailored to university operations.</p>
+            </div>
+
+            <div class="portal-cards-grid">
+                <!-- Admin Card -->
+                <div class="portal-preview-card">
+                    <div>
+                        <div class="portal-card-header">
+                            <div class="portal-card-icon">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                    <path d="M2 17l10 5 10-5"></path>
+                                    <path d="M2 12l10 5 10-5"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="badge badge-gray">GOVERNANCE</span>
+                                <h3 style="margin-top: 2px;">Administrator Portal</h3>
+                            </div>
+                        </div>
+                        <p style="margin-bottom: 1.5rem; font-size: 0.875rem;">
+                            Complete control over college roster registries, faculty allocations, course modules, audit records, and global term configurations.
+                        </p>
+                    </div>
+                    <a href="pages/login.html" class="btn btn-outline btn-block">
+                        Admin Login &rarr;
+                    </a>
+                </div>
+
+                <!-- Faculty Card -->
+                <div class="portal-preview-card">
+                    <div>
+                        <div class="portal-card-header">
+                            <div class="portal-card-icon">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="badge badge-blue">INSTRUCTION</span>
+                                <h3 style="margin-top: 2px;">Faculty Portal</h3>
+                            </div>
+                        </div>
+                        <p style="margin-bottom: 1.5rem; font-size: 0.875rem;">
+                            Take classroom roll call in seconds, review assigned subjects, monitor lecture progress, and submit validated attendance sheets.
+                        </p>
+                    </div>
+                    <a href="pages/login.html" class="btn btn-primary btn-block">
+                        Faculty Login &rarr;
+                    </a>
+                </div>
+
+                <!-- Student Card -->
+                <div class="portal-preview-card">
+                    <div>
+                        <div class="portal-card-header">
+                            <div class="portal-card-icon">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="badge badge-green">STUDENT</span>
+                                <h3 style="margin-top: 2px;">Student Portal</h3>
+                            </div>
+                        </div>
+                        <p style="margin-bottom: 1.5rem; font-size: 0.875rem;">
+                            Real-time visibility into overall and subject-wise attendance percentages, safe margin calculators, and lecture-by-lecture audit logs.
+                        </p>
+                    </div>
+                    <a href="pages/login.html" class="btn btn-outline btn-block">
+                        Student Login &rarr;
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Institutional Footer -->
+    <footer style="background-color: #ffffff; border-top: 1px solid var(--border-color); padding: 1.5rem 2.5rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.825rem; color: var(--text-muted); flex-wrap: wrap; gap: 1rem;">
+        <div>
+            CAMS &bull; College Attendance Management System &bull; 2025
         </div>
-        <h2 class="card-title">Admin</h2>
-        <p class="card-text">Manage students, faculty and subjects.</p>
-        <!-- LINK 3: put admin login page URL in href -->
-        <a href="" class="btn">Admin Login</a>
-      </article>
+        <div>
+            Academic Operations Division &bull; Enterprise Institutional Suite
+        </div>
+    </footer>
 
-    </section>
-
-    <!-- ============ FEATURE STRIP ============ -->
-    <section class="features">
-      <span class="feature">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/>
-        </svg>
-        Real-time Records
-      </span>
-      <span class="feature-dot"></span>
-      <span class="feature">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/>
-        </svg>
-        Automated Percentage Calculation
-      </span>
-      <span class="feature-dot"></span>
-      <span class="feature">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/>
-        </svg>
-        Secure Institutional Access
-      </span>
-    </section>
-  </main>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="footer">
-    CAMS • College Attendance Management System • 2025
-  </footer>
-
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
 </body>
 </html>

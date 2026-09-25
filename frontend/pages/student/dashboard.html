@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMS - Student Portal | Dashboard Overview</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/student.css">
+</head>
+<body class="app-shell">
+
+    <!-- Top Navigation Bar -->
+    <header class="top-navbar">
+        <div class="nav-left">
+            <a href="../../index.html" class="brand-logo-wrap" style="text-decoration: none;">
+                <div class="brand-icon">C</div>
+                <div class="brand-text">
+                    <h2>CAMS</h2>
+                    <span>College Attendance Management System</span>
+                </div>
+            </a>
+            <span class="portal-badge">STUDENT PORTAL</span>
+            <div style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
+                <span>Academic Session 2024&ndash;25</span>
+                <span>&gt;</span>
+                <span style="color: var(--text-primary); font-weight: 600;">Semester VI</span>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <div class="user-profile-badge">
+                <div class="user-avatar-circle" title="Student Profile">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <div class="user-meta">
+                    <div class="name" data-user-name>Rohan Verma</div>
+                    <div class="role-dept">
+                        <span data-user-id>21CSE042</span> &bull; <span data-user-dept>Computer Engineering</span>
+                    </div>
+                </div>
+            </div>
+            <button class="logout-btn" data-action="logout" data-redirect="../login.html" title="Sign out of portal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Shell Layout with Sidebar -->
+    <div class="layout-container">
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar">
+            <div>
+                <div class="sidebar-heading">Navigation</div>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item active">
+                        <a href="dashboard.html">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="attendance.html">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3L22 4"></path>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg>
+                            My Attendance
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="attendance.html#history">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            Lecture History
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="javascript:void(0)" id="medicalLeaveBtn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="12" y1="18" x2="12" y2="12"></line>
+                                <line x1="9" y1="15" x2="15" y2="15"></line>
+                            </svg>
+                            Leave / Medical
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <span class="institution-label">Institution</span>
+                <span class="institution-val">Faculty of Engineering &amp; Tech</span>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header Row -->
+            <div class="dashboard-header-row">
+                <div>
+                    <span class="portal-tag"><span class="dot"></span> Student Portal</span>
+                    <h1 class="dashboard-title">Welcome, <span id="studentHeadingName">Rohan</span></h1>
+                    <p class="dashboard-subtitle">Track your subject-wise attendance and semester compliance.</p>
+                </div>
+                <div class="academic-term-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-color);">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <div>
+                        <span class="term-label">Academic Term</span>
+                        <span class="term-value" id="studentTermBadge">Fall 2025 &bull; Semester VI</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overall Compliance Hero Card -->
+            <div class="student-compliance-card">
+                <div class="compliance-info">
+                    <h2 class="compliance-title">Examination Eligibility Status</h2>
+                    <p class="compliance-desc">
+                        Institutional guidelines require maintaining a minimum of <strong>75.0% cumulative attendance</strong> to qualify for end-semester examinations and university credentials.
+                    </p>
+                    <div class="compliance-badge-row">
+                        <span class="badge badge-green" id="complianceStatusBadge">
+                            <span class="status-dot green"></span> Eligible for Final Exams
+                        </span>
+                        <span class="badge badge-blue">
+                            Academic Standing: Regular
+                        </span>
+                    </div>
+                </div>
+                <div class="compliance-meter">
+                    <div class="compliance-percentage" id="overallAttendancePct">86.4%</div>
+                    <div class="compliance-caption">Overall Attendance</div>
+                </div>
+            </div>
+
+            <!-- 4 Quick Stats Cards -->
+            <section class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                <!-- Conducted -->
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <div class="stat-label">Conducted Classes</div>
+                        <div class="stat-number" id="statTotalConducted">142</div>
+                        <div class="stat-caption">Total term lectures</div>
+                    </div>
+                    <div class="stat-icon-wrap">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Attended -->
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <div class="stat-label">Attended</div>
+                        <div class="stat-number" style="color: var(--success);" id="statTotalAttended">123</div>
+                        <div class="stat-caption"><span class="status-dot green"></span> Present lectures</div>
+                    </div>
+                    <div class="stat-icon-wrap" style="background-color: var(--success-bg); color: var(--success);">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Missed -->
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <div class="stat-label">Missed</div>
+                        <div class="stat-number" style="color: var(--warning);" id="statTotalMissed">19</div>
+                        <div class="stat-caption"><span class="status-dot amber"></span> Absences recorded</div>
+                    </div>
+                    <div class="stat-icon-wrap" style="background-color: var(--warning-bg); color: var(--warning);">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Shortage Risk -->
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <div class="stat-label">Shortage Risk</div>
+                        <div class="stat-number" id="statShortageCount">0</div>
+                        <div class="stat-caption">Courses below 75%</div>
+                    </div>
+                    <div class="stat-icon-wrap">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subject-Wise Attendance Cards Section -->
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Subject-Wise Attendance</h2>
+                    <span class="section-hint">Performance across curriculum modules registered for Semester VI.</span>
+                </div>
+                <a href="attendance.html" class="view-past-link">
+                    View Complete Log &rarr;
+                </a>
+            </div>
+
+            <!-- Subject Cards Grid -->
+            <section class="student-subjects-grid" id="studentSubjectCards">
+                <!-- Dynamically populated by js/student/dashboard.js -->
+            </section>
+
+            <!-- Recent Activity Timeline / Table -->
+            <div class="section-header" style="margin-top: 1.5rem;">
+                <h2 class="section-title">Recent Attendance Activity</h2>
+                <span class="section-hint">Latest classroom sessions logged by faculty instructors.</span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Subject Module</th>
+                            <th>Lecture Slot</th>
+                            <th>Faculty Instructor</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentRecentActivityBody">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Footer -->
+            <footer style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); font-size: 0.8rem; color: var(--text-muted); text-align: center;">
+                CAMS &bull; College Attendance Management System &bull; 2025
+            </footer>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/student/dashboard.js"></script>
+</body>
+</html>
