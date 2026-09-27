@@ -213,4 +213,73 @@ public class UserRepository {
             e.printStackTrace();
         }
     }
+
+    public int insertUser(Connection connection, String username, String password, String role) throws SQLException {
+        String sql = """
+                INSERT INTO users (username, password, role)
+                VALUES (?, ?, ?)
+                """;
+        String hashedPassword = PasswordHasher.hashPassword(password);
+        try (PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, username);
+            statement.setString(2, hashedPassword);
+            statement.setString(3, role);
+            statement.executeUpdate();
+            try (ResultSet keys = statement.getGeneratedKeys()) {
+                if (keys.next()) {
+                    return keys.getInt(1);
+                }
+            }
+        }
+        return -1;
+    }
+
+    public User findUserByIdentifier(String identifier) {
+        User user = findUserByUsername(identifier);
+        if (user != null) {
+            return user;
+        }
+
+        String studentSql = """
+                SELECT u.username
+                FROM students s
+                JOIN users u ON s.user_id = u.id
+                WHERE s.roll_no = ?
+                """;
+        try (
+            Connection connection = Database.getConnection();
+            PreparedStatement statement = connection.prepareStatement(studentSql)
+        ) {
+            statement.setString(1, identifier);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return findUserByUsername(resultSet.getString("username"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String facultySql = """
+                SELECT u.username
+                FROM faculty f
+                JOIN users u ON f.user_id = u.id
+                WHERE f.employee_id = ?
+                """;
+        try (
+            Connection connection = Database.getConnection();
+            PreparedStatement statement = connection.prepareStatement(facultySql)
+        ) {
+            statement.setString(1, identifier);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return findUserByUsername(resultSet.getString("username"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }
