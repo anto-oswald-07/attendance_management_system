@@ -15,21 +15,23 @@ document.addEventListener("DOMContentLoaded", () => {
 async function loadAdminDashboardStats() {
     console.log("[Admin Dashboard] Initializing system metrics...");
 
-    /*
-    // =========================================================================
-    // TODO: Connect this function to the backend API
-    // Example:
-    // try {
-    //     const stats = await apiRequest(API_ENDPOINTS.ADMIN_STATS);
-    //     document.getElementById("totalStudentsCount").textContent = stats.totalStudents;
-    //     document.getElementById("totalFacultyCount").textContent = stats.totalFaculty;
-    //     document.getElementById("totalSubjectsCount").textContent = stats.totalSubjects;
-    //     document.getElementById("currentAcademicTerm").textContent = stats.academicTerm;
-    // } catch (err) {
-    //     console.error("Failed to load admin stats from backend:", err);
-    // }
-    // =========================================================================
-    */
+    const studentsEl = document.getElementById("totalStudentsCount");
+    const facultyEl = document.getElementById("totalFacultyCount");
+    const subjectsEl = document.getElementById("totalSubjectsCount");
+    const termEl = document.getElementById("currentAcademicTerm");
+
+    try {
+        const stats = await apiRequest(API_ENDPOINTS.ADMIN_STATS);
+        if (stats) {
+            if (studentsEl && stats.totalStudents !== undefined) studentsEl.textContent = stats.totalStudents;
+            if (facultyEl && stats.totalFaculty !== undefined) facultyEl.textContent = stats.totalFaculty;
+            if (subjectsEl && stats.totalSubjects !== undefined) subjectsEl.textContent = stats.totalSubjects;
+            if (termEl && stats.academicTerm !== undefined) termEl.textContent = stats.academicTerm;
+            return;
+        }
+    } catch (err) {
+        console.warn("Failed to load admin stats from backend, using fallback:", err);
+    }
 
     const placeholderStats = {
         totalStudents: 62,
@@ -37,11 +39,6 @@ async function loadAdminDashboardStats() {
         totalSubjects: 6,
         academicTerm: "Fall 2025 • Semester I"
     };
-
-    const studentsEl = document.getElementById("totalStudentsCount");
-    const facultyEl = document.getElementById("totalFacultyCount");
-    const subjectsEl = document.getElementById("totalSubjectsCount");
-    const termEl = document.getElementById("currentAcademicTerm");
 
     if (studentsEl) studentsEl.textContent = placeholderStats.totalStudents;
     if (facultyEl) facultyEl.textContent = placeholderStats.totalFaculty;

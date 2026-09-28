@@ -7,8 +7,24 @@
  * update the API_BASE_URL and relevant endpoint paths below.
  */
 
-// Base API URL - Replace with your actual backend server host
-const API_BASE_URL = "http://localhost:5000/api";
+// Railway Production Backend Base URL
+// When deployed, your Railway Java backend endpoint is configured here
+const RAILWAY_BACKEND_URL = "https://attendance-management-system-production.up.railway.app/api";
+
+// Determine whether running locally or on production deployment (Vercel)
+const isLocalhost = typeof window !== "undefined" && (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1" ||
+    window.location.protocol === "file:"
+);
+
+// Base API URL:
+// 1. window.CAMS_API_URL if explicitly injected
+// 2. http://localhost:5000/api if running on localhost
+// 3. RAILWAY_BACKEND_URL for production (Vercel)
+const API_BASE_URL = (typeof window !== "undefined" && window.CAMS_API_URL)
+    ? window.CAMS_API_URL
+    : (isLocalhost ? "http://localhost:5000/api" : RAILWAY_BACKEND_URL);
 
 // Endpoints configuration map
 const API_ENDPOINTS = {
@@ -36,39 +52,46 @@ const API_ENDPOINTS = {
 };
 
 /**
- * Standard fetch helper with authorization headers placeholder
+ * Standard fetch helper with authorization headers
  * @param {string} endpoint - Target URL
  * @param {object} options - Fetch options (method, headers, body)
  * @returns {Promise<any>} - Parsed JSON response
  */
 async function apiRequest(endpoint, options = {}) {
+    const token = typeof localStorage !== "undefined" ? localStorage.getItem("cams_auth_token") : null;
     const defaultHeaders = {
         "Content-Type": "application/json",
-        // TODO: Attach real JWT or Bearer token once backend authentication is ready
-        // "Authorization": `Bearer ${localStorage.getItem("cams_auth_token") || ""}`
+        ...(token ? { "Authorization": `Bearer ${token}` } : {})
     };
 
     const config = {
         ...options,
         headers: {
             ...defaultHeaders,
-            ...options.headers
+            ...(options.headers || {})
         }
     };
 
     try {
         console.log(`[API Request] -> ${config.method || "GET"} ${endpoint}`);
-        // NOTE: Backend is not yet connected. When ready, uncomment the fetch call below:
-        /*
         const response = await fetch(endpoint, config);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return await response.json();
-        */
 
-        // Returning null as placeholder
-        return null;
+        if (response.status === 204) {
+            return { success: true };
+        }
+
+        const contentType = response.headers.get("content-type");
+        const isJson = contentType && contentType.includes("application/json");
+        const data = isJson ? await response.json() : await response.text();
+
+        if (!response.ok) {
+            const errorMsg = (data && typeof data === "object" && (data.error || data.message))
+                ? (data.error || data.message)
+                : `HTTP ${response.status}: ${response.statusText}`;
+            throw new Error(errorMsg);
+        }
+
+        return data;
     } catch (error) {
         console.error(`[API Error] Failed to fetch ${endpoint}:`, error);
         throw error;

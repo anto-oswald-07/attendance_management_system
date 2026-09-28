@@ -73,22 +73,6 @@ function setCurrentUser(user) {
 async function handleLogin(identifier, password, role = "student", relativeBasePath = "") {
     console.log(`[Auth] Attempting login for Role: ${role}, Identifier: ${identifier}`);
 
-    /*
-    // =========================================================================
-    // TODO: Connect this function to the backend API
-    // =========================================================================
-    // const response = await fetch(API_ENDPOINTS.LOGIN, {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ identifier, password, role })
-    // });
-    // const data = await response.json();
-    // if (!response.ok) throw new Error(data.message || "Login failed");
-    // localStorage.setItem("cams_auth_token", data.token);
-    // setCurrentUser(data.user);
-    // =========================================================================
-    */
-
     if (!identifier || identifier.trim() === "") {
         throw new Error("Please enter your Roll Number / Institutional ID.");
     }
@@ -96,11 +80,38 @@ async function handleLogin(identifier, password, role = "student", relativeBaseP
         throw new Error("Please enter your password.");
     }
 
-    const profile = { ...DEFAULT_PROFILES[role] };
-    if (identifier.trim().length > 2) {
-        profile.id = identifier.trim();
+    try {
+        const data = await apiRequest(API_ENDPOINTS.LOGIN, {
+            method: "POST",
+            body: JSON.stringify({
+                identifier: identifier.trim(),
+                password: password.trim(),
+                role: role.toUpperCase()
+            })
+        });
+
+        if (data && data.token) {
+            localStorage.setItem("cams_auth_token", data.token);
+            if (data.user) {
+                setCurrentUser(data.user);
+                if (data.user.role) {
+                    role = data.user.role.toLowerCase();
+                }
+            }
+        }
+    } catch (apiErr) {
+        console.warn("[Auth] Backend login request failed:", apiErr);
+        if (apiErr.message && !apiErr.message.includes("Failed to fetch") && !apiErr.message.includes("NetworkError")) {
+            throw apiErr;
+        }
+
+        // Offline / dev fallback
+        const profile = { ...DEFAULT_PROFILES[role] };
+        if (identifier.trim().length > 2) {
+            profile.id = identifier.trim();
+        }
+        setCurrentUser(profile);
     }
-    setCurrentUser(profile);
 
     let redirectUrl = "";
     if (role === "admin") {
@@ -120,10 +131,11 @@ async function handleLogin(identifier, password, role = "student", relativeBaseP
  * @param {string} redirectPath - Relative path to login.html
  */
 function handleLogout(redirectPath = "../login.html") {
-    // TODO: Notify backend to invalidate JWT session if token blacklisting is used
-    /*
-    fetch(API_ENDPOINTS.LOGOUT, { method: "POST" }).catch(console.error);
-    */
+    try {
+        apiRequest(API_ENDPOINTS.LOGOUT, { method: "POST" }).catch(console.error);
+    } catch (e) {
+        // ignore
+    }
     localStorage.removeItem(AUTH_STORAGE_KEY);
     localStorage.removeItem("cams_auth_token");
     window.location.href = redirectPath;

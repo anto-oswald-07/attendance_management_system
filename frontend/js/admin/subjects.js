@@ -92,6 +92,19 @@ function initSubjectsView() {
     semFilter.addEventListener("change", applyFilters);
 
     setupSubjectModals();
+    loadSubjectsFromBackend();
+}
+
+async function loadSubjectsFromBackend() {
+    try {
+        const data = await apiRequest(API_ENDPOINTS.SUBJECTS);
+        if (Array.isArray(data) && data.length > 0) {
+            subjectsData = data;
+            renderSubjectsTable(subjectsData);
+        }
+    } catch (err) {
+        console.warn("Could not load subjects from backend, using default list:", err);
+    }
 }
 
 function renderSubjectsTable(list) {
@@ -182,13 +195,11 @@ function setupSubjectModals() {
         const faculty = document.getElementById("formSubjectFaculty").value;
         const enrolled = parseInt(document.getElementById("formSubjectEnrollment").value, 10) || 60;
 
-        /*
-        // =====================================================================
-        // TODO: Connect this function to the backend API
-        // const payload = { code, name, department: dept, semester: sem, faculty, enrolled };
-        // await apiRequest(API_ENDPOINTS.SUBJECTS, { method: "POST", body: JSON.stringify(payload) });
-        // =====================================================================
-        */
+        const payload = { code, name, department: dept, semester: sem, faculty, enrolled };
+        apiRequest(API_ENDPOINTS.SUBJECTS, {
+            method: "POST",
+            body: JSON.stringify(payload)
+        }).catch(err => console.warn("Notice: Subject save API call:", err));
 
         subjectsData.unshift({ code, name, department: dept, semester: sem, faculty, enrolled });
         renderSubjectsTable(subjectsData);
@@ -202,12 +213,11 @@ function setupSubjectModals() {
 
     confirmDeleteBtn.addEventListener("click", () => {
         if (activeDeleteSubjectCode) {
-            /*
-            // =================================================================
-            // TODO: Delete subject module in backend API
-            // await apiRequest(`${API_ENDPOINTS.SUBJECTS}/${activeDeleteSubjectCode}`, { method: "DELETE" });
-            // =================================================================
-            */
+            apiRequest(
+                `${API_ENDPOINTS.SUBJECTS}/${encodeURIComponent(activeDeleteSubjectCode)}`,
+                { method: "DELETE" }
+            ).catch(err => console.warn("Notice: Subject delete API call:", err));
+
             subjectsData = subjectsData.filter(s => s.code !== activeDeleteSubjectCode);
             renderSubjectsTable(subjectsData);
             hideDeleteModal();

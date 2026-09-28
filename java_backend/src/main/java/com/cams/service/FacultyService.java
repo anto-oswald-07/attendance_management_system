@@ -36,7 +36,9 @@ public class FacultyService {
 
         Map<String, Object> stats = new HashMap<>();
         stats.put("assignedCount", subjects.size());
+        stats.put("assignedSubjectsCount", subjects.size());
         stats.put("classesToday", Math.min(subjects.size(), 2));
+        stats.put("todayClassesCount", Math.min(subjects.size(), 2));
         stats.put("sessionLabel", "Academic Session: 2024–25 (Odd Sem) • Today: " + dayFormatted);
         return stats;
     }

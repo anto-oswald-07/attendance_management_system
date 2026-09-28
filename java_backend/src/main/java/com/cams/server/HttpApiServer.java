@@ -59,9 +59,7 @@ public class HttpApiServer {
     }
 
     private void handleRequest(HttpExchange exchange) {
-        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        setCorsHeaders(exchange);
 
         String method = exchange.getRequestMethod();
         if ("OPTIONS".equalsIgnoreCase(method)) {
@@ -499,5 +497,63 @@ public class HttpApiServer {
             }
         }
         return null;
+    }
+
+    private void setCorsHeaders(HttpExchange exchange) {
+        String requestOrigin = exchange.getRequestHeaders().getFirst("Origin");
+        String allowedOrigin = determineAllowedOrigin(requestOrigin);
+
+        if (allowedOrigin != null && !allowedOrigin.isEmpty()) {
+            exchange.getResponseHeaders().set("Access-Control-Allow-Origin", allowedOrigin);
+            exchange.getResponseHeaders().set("Access-Control-Allow-Credentials", "true");
+            exchange.getResponseHeaders().set("Vary", "Origin");
+        } else {
+            exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        }
+
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, Origin");
+        exchange.getResponseHeaders().set("Access-Control-Max-Age", "86400");
+    }
+
+    private String determineAllowedOrigin(String requestOrigin) {
+        if (requestOrigin == null || requestOrigin.trim().isEmpty()) {
+            return null;
+        }
+        requestOrigin = requestOrigin.trim();
+
+        // 1. Check explicit FRONTEND_URL or CAMS_FRONTEND_URL or ALLOWED_ORIGINS
+        String envFrontends = System.getenv("FRONTEND_URL");
+        if (envFrontends == null) envFrontends = System.getenv("CAMS_FRONTEND_URL");
+        if (envFrontends == null) envFrontends = System.getenv("ALLOWED_ORIGINS");
+
+        if (envFrontends != null && !envFrontends.trim().isEmpty()) {
+            String[] allowedList = envFrontends.split(",");
+            for (String allowed : allowedList) {
+                allowed = allowed.trim();
+                if (allowed.equalsIgnoreCase(requestOrigin) ||
+                    (allowed.endsWith("/") && allowed.substring(0, allowed.length() - 1).equalsIgnoreCase(requestOrigin)) ||
+                    (requestOrigin.endsWith("/") && requestOrigin.substring(0, requestOrigin.length() - 1).equalsIgnoreCase(allowed))) {
+                    return requestOrigin;
+                }
+            }
+        }
+
+        // 2. Allow Vercel production & preview deployments (*.vercel.app)
+        if (requestOrigin.matches("^https://[a-zA-Z0-9_.-]+\\.vercel\\.app$")) {
+            return requestOrigin;
+        }
+
+        // 3. Allow local development (localhost / 127.0.0.1)
+        if (requestOrigin.matches("^http://(localhost|127\\.0\\.0\\.1)(:\\d+)?$")) {
+            return requestOrigin;
+        }
+
+        // 4. If FRONTEND_URL was configured, default to its first origin
+        if (envFrontends != null && !envFrontends.trim().isEmpty()) {
+            return envFrontends.split(",")[0].trim();
+        }
+
+        return requestOrigin;
     }
 }

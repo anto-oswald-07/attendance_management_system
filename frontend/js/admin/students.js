@@ -112,6 +112,23 @@ function initStudentsView() {
     window.applyStudentFilters = applyFilters;
 
     setupStudentModals();
+    loadStudentsFromBackend();
+}
+
+async function loadStudentsFromBackend() {
+    try {
+        const data = await apiRequest(API_ENDPOINTS.STUDENTS);
+        if (Array.isArray(data) && data.length > 0) {
+            studentsData = data;
+            if (window.applyStudentFilters) {
+                window.applyStudentFilters();
+            } else {
+                renderStudentsTable(studentsData);
+            }
+        }
+    } catch (err) {
+        console.warn("Could not load students from backend, using default list:", err);
+    }
 }
 
 function renderStudentsTable(list) {
@@ -262,16 +279,18 @@ function setupStudentModals() {
                 return;
             }
 
-            /*
-            // TODO: Replace with backend API call
-            // const payload = {
-            //     roll,
-            //     name,
-            //     email,
-            //     department: dept,
-            //     semester: sem
-            // };
-            */
+            const payload = {
+                roll,
+                name,
+                email,
+                department: dept,
+                semester: sem
+            };
+
+            apiRequest(API_ENDPOINTS.STUDENTS, {
+                method: "POST",
+                body: JSON.stringify(payload)
+            }).catch(err => console.warn("Notice: Student save API call:", err));
 
             if (editingStudentId) {
                 const studentIndex = studentsData.findIndex(
@@ -355,13 +374,10 @@ function setupStudentModals() {
         confirmDeleteBtn.addEventListener("click", () => {
             if (!activeDeleteStudentId) return;
 
-            /*
-            // TODO: Delete record from backend API
-            // await apiRequest(
-            //     `${API_ENDPOINTS.STUDENTS}/${activeDeleteStudentId}`,
-            //     { method: "DELETE" }
-            // );
-            */
+            apiRequest(
+                `${API_ENDPOINTS.STUDENTS}/${encodeURIComponent(activeDeleteStudentId)}`,
+                { method: "DELETE" }
+            ).catch(err => console.warn("Notice: Student delete API call:", err));
 
             studentsData = studentsData.filter(
                 student => student.id !== activeDeleteStudentId

@@ -81,6 +81,19 @@ function initFacultyView() {
     deptFilter.addEventListener("change", applyFilters);
 
     setupFacultyModals();
+    loadFacultyFromBackend();
+}
+
+async function loadFacultyFromBackend() {
+    try {
+        const data = await apiRequest(API_ENDPOINTS.FACULTY);
+        if (Array.isArray(data) && data.length > 0) {
+            facultyData = data;
+            renderFacultyTable(facultyData);
+        }
+    } catch (err) {
+        console.warn("Could not load faculty from backend, using default list:", err);
+    }
 }
 
 function renderFacultyTable(list) {
@@ -177,13 +190,11 @@ function setupFacultyModals() {
         const subRaw = document.getElementById("formFacultySubjects").value.trim();
         const subjects = subRaw ? subRaw.split(",").map(s => s.trim()) : ["General Elective"];
 
-        /*
-        // =====================================================================
-        // TODO: Replace with data submission to backend API
-        // const payload = { id, name, email, department: dept, subjects };
-        // await apiRequest(API_ENDPOINTS.FACULTY, { method: "POST", body: JSON.stringify(payload) });
-        // =====================================================================
-        */
+        const payload = { id, name, email, department: dept, subjects };
+        apiRequest(API_ENDPOINTS.FACULTY, {
+            method: "POST",
+            body: JSON.stringify(payload)
+        }).catch(err => console.warn("Notice: Faculty save API call:", err));
 
         facultyData.unshift({
             id,
@@ -205,12 +216,11 @@ function setupFacultyModals() {
 
     confirmDeleteBtn.addEventListener("click", () => {
         if (activeDeleteFacultyId) {
-            /*
-            // =================================================================
-            // TODO: Delete faculty member from backend API
-            // await apiRequest(`${API_ENDPOINTS.FACULTY}/${activeDeleteFacultyId}`, { method: "DELETE" });
-            // =================================================================
-            */
+            apiRequest(
+                `${API_ENDPOINTS.FACULTY}/${encodeURIComponent(activeDeleteFacultyId)}`,
+                { method: "DELETE" }
+            ).catch(err => console.warn("Notice: Faculty delete API call:", err));
+
             facultyData = facultyData.filter(f => f.id !== activeDeleteFacultyId);
             renderFacultyTable(facultyData);
             hideDeleteModal();

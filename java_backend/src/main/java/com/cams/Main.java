@@ -18,8 +18,18 @@ public class Main {
             e.printStackTrace();
         }
 
+        int port = 5000;
+        String portEnv = System.getenv("PORT");
+        if (portEnv != null && !portEnv.trim().isEmpty()) {
+            try {
+                port = Integer.parseInt(portEnv.trim());
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid PORT environment variable '" + portEnv + "', defaulting to 5000.");
+            }
+        }
+
         try {
-            HttpApiServer server = new HttpApiServer(5000);
+            HttpApiServer server = new HttpApiServer(port);
             server.start();
         } catch (Exception e) {
             System.err.println("Failed to start HTTP server: " + e.getMessage());
