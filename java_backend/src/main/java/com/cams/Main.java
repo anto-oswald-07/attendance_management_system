@@ -2,7 +2,6 @@ package com.cams;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.concurrent.CountDownLatch;
 
 import com.cams.database.Database;
 import com.cams.server.HttpApiServer;
@@ -22,8 +21,6 @@ public class Main {
             }
         }
 
-        CountDownLatch keepAliveLatch = new CountDownLatch(1);
-
         try {
             HttpApiServer server = new HttpApiServer(port);
             server.start();
@@ -31,17 +28,26 @@ public class Main {
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                 System.out.println("Shutting down CAMS Backend Server...");
                 server.stop();
-                keepAliveLatch.countDown();
             }));
 
             // Test and verify database connection
-            testDatabaseConnection();
+            try {
+                testDatabaseConnection();
+            } catch (Throwable t) {
+                System.err.println("Database test warning: " + t.getMessage());
+            }
 
-            // Block main thread indefinitely to keep container process running
-            keepAliveLatch.await();
-        } catch (Exception e) {
-            System.err.println("Fatal error in CAMS Backend Server: " + e.getMessage());
-            e.printStackTrace();
+            // Keep main thread alive indefinitely while the HTTP server is running
+            while (true) {
+                try {
+                    Thread.sleep(60000);
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
+        } catch (Throwable t) {
+            System.err.println("Fatal error in CAMS Backend Server: " + t.getMessage());
+            t.printStackTrace();
         }
     }
 

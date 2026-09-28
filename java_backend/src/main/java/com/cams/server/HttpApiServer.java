@@ -69,20 +69,18 @@ public class HttpApiServer {
         }
 
         String path = exchange.getRequestURI().getPath();
-        if ("/".equals(path) || "/health".equals(path) || "/api/health".equals(path) || path == null || path.isEmpty()) {
-            Map<String, Object> health = new HashMap<>();
-            health.put("status", "UP");
-            health.put("service", "cams-backend");
-            sendJson(exchange, 200, health);
-            return;
-        }
 
-        if (path.startsWith("/api")) {
+        // 1. Forward specific API endpoints to handleRequest
+        if (path != null && path.startsWith("/api/")) {
             handleRequest(exchange);
             return;
         }
 
-        sendError(exchange, 404, "Endpoint not found: " + path);
+        // 2. Return 200 OK for any root, health, ping, or fallback probe
+        Map<String, Object> health = new HashMap<>();
+        health.put("status", "UP");
+        health.put("service", "cams-backend");
+        sendJson(exchange, 200, health);
     }
 
     private void handleRequest(HttpExchange exchange) {
@@ -451,6 +449,10 @@ public class HttpApiServer {
         byte[] bytes = json.getBytes(StandardCharsets.UTF_8);
         try {
             exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+            if ("HEAD".equalsIgnoreCase(exchange.getRequestMethod())) {
+                exchange.sendResponseHeaders(statusCode, -1);
+                return;
+            }
             exchange.sendResponseHeaders(statusCode, bytes.length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(bytes);
@@ -469,6 +471,10 @@ public class HttpApiServer {
     private void sendResponse(HttpExchange exchange, int statusCode, String responseText) {
         byte[] bytes = responseText.getBytes(StandardCharsets.UTF_8);
         try {
+            if ("HEAD".equalsIgnoreCase(exchange.getRequestMethod())) {
+                exchange.sendResponseHeaders(statusCode, -1);
+                return;
+            }
             exchange.sendResponseHeaders(statusCode, bytes.length > 0 ? bytes.length : -1);
             if (bytes.length > 0) {
                 try (OutputStream os = exchange.getResponseBody()) {
