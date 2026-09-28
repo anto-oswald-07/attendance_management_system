@@ -46,6 +46,7 @@ public class HttpApiServer {
         server = HttpServer.create(new InetSocketAddress(port), 0);
         server.setExecutor(Executors.newCachedThreadPool());
 
+        server.createContext("/", this::handleRootOrHealthRequest);
         server.createContext("/api", this::handleRequest);
 
         server.start();
@@ -56,6 +57,32 @@ public class HttpApiServer {
         if (server != null) {
             server.stop(0);
         }
+    }
+
+    private void handleRootOrHealthRequest(HttpExchange exchange) {
+        setCorsHeaders(exchange);
+
+        String method = exchange.getRequestMethod();
+        if ("OPTIONS".equalsIgnoreCase(method)) {
+            sendResponse(exchange, 204, "");
+            return;
+        }
+
+        String path = exchange.getRequestURI().getPath();
+        if ("/".equals(path) || "/health".equals(path) || "/api/health".equals(path) || path == null || path.isEmpty()) {
+            Map<String, Object> health = new HashMap<>();
+            health.put("status", "UP");
+            health.put("service", "cams-backend");
+            sendJson(exchange, 200, health);
+            return;
+        }
+
+        if (path.startsWith("/api")) {
+            handleRequest(exchange);
+            return;
+        }
+
+        sendError(exchange, 404, "Endpoint not found: " + path);
     }
 
     private void handleRequest(HttpExchange exchange) {
