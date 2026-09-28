@@ -16,9 +16,12 @@ public class Main {
         if (portEnv != null && !portEnv.trim().isEmpty()) {
             try {
                 port = Integer.parseInt(portEnv.trim());
+                System.out.println("[Config] Detected Railway PORT environment variable: " + port);
             } catch (NumberFormatException e) {
                 System.err.println("Invalid PORT environment variable '" + portEnv + "', defaulting to 5000.");
             }
+        } else {
+            System.out.println("[Config] No PORT environment variable detected, defaulting to 5000.");
         }
 
         try {
@@ -26,7 +29,7 @@ public class Main {
             server.start();
 
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                System.out.println("Shutting down CAMS Backend Server...");
+                System.out.println("[Process Event] Shutdown hook triggered: JVM received termination signal (SIGTERM/SIGINT) from Railway container supervisor.");
                 server.stop();
             }));
 
@@ -34,19 +37,22 @@ public class Main {
             try {
                 testDatabaseConnection();
             } catch (Throwable t) {
-                System.err.println("Database test warning: " + t.getMessage());
+                System.err.println("[Database Warning] Database initial test threw: " + t.getMessage());
             }
 
             // Keep main thread alive indefinitely while the HTTP server is running
+            System.out.println("[Server Ready] Backend initialized and running on port " + port + ". Main thread entering keep-alive loop.");
             while (true) {
                 try {
-                    Thread.sleep(60000);
+                    Thread.sleep(10000);
                 } catch (InterruptedException e) {
+                    System.out.println("[Process Event] Main keep-alive thread interrupted: " + e.getMessage());
                     break;
                 }
             }
+            System.out.println("[Process Event] Main loop terminated.");
         } catch (Throwable t) {
-            System.err.println("Fatal error in CAMS Backend Server: " + t.getMessage());
+            System.err.println("[Process Event] Fatal error in CAMS Backend Server: " + t.getMessage());
             t.printStackTrace();
         }
     }
