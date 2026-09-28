@@ -43,14 +43,14 @@ public class HttpApiServer {
     }
 
     public void start() throws IOException {
-        server = HttpServer.create(new InetSocketAddress(port), 0);
+        server = HttpServer.create(new InetSocketAddress("0.0.0.0", port), 0);
         server.setExecutor(Executors.newCachedThreadPool());
 
         server.createContext("/", this::handleRootOrHealthRequest);
         server.createContext("/api", this::handleRequest);
 
         server.start();
-        System.out.println("CAMS HTTP Backend Server started on http://localhost:" + port + "/api");
+        System.out.println("CAMS HTTP Backend Server started on http://0.0.0.0:" + port + "/api");
     }
 
     public void stop() {
