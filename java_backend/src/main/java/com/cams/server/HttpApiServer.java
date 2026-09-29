@@ -43,14 +43,14 @@ public class HttpApiServer {
     }
 
     public void start() throws IOException {
-        server = HttpServer.create(new InetSocketAddress(port), 128);
+        server = HttpServer.create(new InetSocketAddress("0.0.0.0", port), 0);
         server.setExecutor(Executors.newCachedThreadPool());
 
         server.createContext("/", this::handleRootOrHealthRequest);
         server.createContext("/api", this::handleRequest);
 
         server.start();
-        System.out.println("CAMS HTTP Backend Server started on port " + port + " (" + server.getAddress() + ")");
+        System.out.println("CAMS HTTP Backend Server started on http://0.0.0.0:" + port + "/api");
     }
 
     public void stop() {
@@ -59,48 +59,16 @@ public class HttpApiServer {
         }
     }
 
-    private boolean isHealthCheckPath(String path) {
-        if (path == null || path.isEmpty()) return true;
-        path = path.trim();
-        return path.equals("/") ||
-               path.equals("/health") ||
-               path.equals("/healthz") ||
-               path.equals("/ping") ||
-               path.equals("/status") ||
-               path.equals("/up") ||
-               path.equals("/api") ||
-               path.equals("/api/") ||
-               path.equals("/api/health") ||
-               path.equals("/api/healthz") ||
-               path.equals("/api/ping") ||
-               path.equals("/api/status") ||
-               path.equals("/__health");
-    }
-
-    private void respondHealthOk(HttpExchange exchange) {
-        Map<String, Object> health = new HashMap<>();
-        health.put("status", "UP");
-        health.put("service", "cams-backend");
-        sendJson(exchange, 200, health);
-        System.out.println("[HTTP Response] 200 OK -> " + exchange.getRequestMethod() + " " + exchange.getRequestURI());
-    }
-
     private void handleRootOrHealthRequest(HttpExchange exchange) {
         setCorsHeaders(exchange);
 
         String method = exchange.getRequestMethod();
-        String path = exchange.getRequestURI().getPath();
-        System.out.println("[HTTP Request] " + method + " " + path + " from " + exchange.getRemoteAddress());
-
         if ("OPTIONS".equalsIgnoreCase(method)) {
             sendResponse(exchange, 204, "");
             return;
         }
 
-        if (isHealthCheckPath(path)) {
-            respondHealthOk(exchange);
-            return;
-        }
+        String path = exchange.getRequestURI().getPath();
 
         // 1. Forward specific API endpoints to handleRequest
         if (path != null && path.startsWith("/api/")) {
@@ -108,33 +76,24 @@ public class HttpApiServer {
             return;
         }
 
-        // 2. Return 200 OK for any other root GET/HEAD probe
-        if ("GET".equalsIgnoreCase(method) || "HEAD".equalsIgnoreCase(method)) {
-            respondHealthOk(exchange);
-            return;
-        }
-
-        sendError(exchange, 404, "Endpoint not found: " + path);
+        // 2. Return 200 OK for any root, health, ping, or fallback probe
+        Map<String, Object> health = new HashMap<>();
+        health.put("status", "UP");
+        health.put("service", "cams-backend");
+        sendJson(exchange, 200, health);
     }
 
     private void handleRequest(HttpExchange exchange) {
         setCorsHeaders(exchange);
 
         String method = exchange.getRequestMethod();
-        URI uri = exchange.getRequestURI();
-        String path = uri.getPath();
-        System.out.println("[HTTP Request] " + method + " " + path + " from " + exchange.getRemoteAddress());
-
         if ("OPTIONS".equalsIgnoreCase(method)) {
             sendResponse(exchange, 204, "");
             return;
         }
 
-        if (isHealthCheckPath(path)) {
-            respondHealthOk(exchange);
-            return;
-        }
-
+        URI uri = exchange.getRequestURI();
+        String path = uri.getPath();
         Map<String, String> params = parseQueryParams(uri.getQuery());
 
         try {
