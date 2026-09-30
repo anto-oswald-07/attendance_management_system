@@ -9,7 +9,7 @@
 
 // Railway Production Backend Base URL
 // When deployed, your Railway Java backend endpoint is configured here
-const RAILWAY_BACKEND_URL = "https://attendance-management-system-production.up.railway.app/api";
+const RAILWAY_BACKEND_URL = "https://attendancemanagementsystem-production-acee.up.railway.app/api";
 
 // Determine whether running locally or on production deployment (Vercel)
 const isLocalhost = typeof window !== "undefined" && (
