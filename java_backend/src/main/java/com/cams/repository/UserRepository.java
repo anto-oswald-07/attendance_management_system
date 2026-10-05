@@ -38,7 +38,21 @@ public class UserRepository {
         }
     }
 
-    public void createUser(String username, String password, String role) {
+    public boolean hasAdminUser() {
+        String sql = "SELECT 1 FROM users WHERE role = 'ADMIN' LIMIT 1";
+        try (
+            Connection connection = Database.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery()
+        ) {
+            return resultSet.next();
+        } catch (SQLException e) {
+            System.err.println("[Bootstrap Warning] Error checking for existing admin: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean createUser(String username, String password, String role) {
         String sql = """
                 INSERT INTO users (username, password, role)
                 VALUES (?, ?, ?)
@@ -52,13 +66,16 @@ public class UserRepository {
             statement.setString(2, hashedPassword);
             statement.setString(3, role);
 
-            statement.executeUpdate();
-
-            System.out.println("User created successfully.");
+            int affected = statement.executeUpdate();
+            if (affected > 0) {
+                System.out.println("User created successfully.");
+                return true;
+            }
+            return false;
         } 
         catch (SQLException e) {
-            System.out.println("Failed to create user.");
-            e.printStackTrace();
+            System.err.println("Failed to create user: " + e.getMessage());
+            return false;
         }
     }
 

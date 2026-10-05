@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.cams.database.Database;
+import com.cams.repository.UserRepository;
 import com.cams.server.HttpApiServer;
 
 public class Main {
@@ -16,9 +17,12 @@ public class Main {
         if (portEnv != null && !portEnv.trim().isEmpty()) {
             try {
                 port = Integer.parseInt(portEnv.trim());
+                System.out.println("[Config] Detected Railway PORT environment variable: " + port);
             } catch (NumberFormatException e) {
                 System.err.println("Invalid PORT environment variable '" + portEnv + "', defaulting to 5000.");
             }
+        } else {
+            System.out.println("[Config] No PORT environment variable detected, defaulting to 5000.");
         }
 
         try {
@@ -26,7 +30,7 @@ public class Main {
             server.start();
 
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                System.out.println("Shutting down CAMS Backend Server...");
+                System.out.println("[Process Event] Shutdown hook triggered: JVM received termination signal (SIGTERM/SIGINT) from Railway container supervisor.");
                 server.stop();
             }));
 
@@ -34,19 +38,29 @@ public class Main {
             try {
                 testDatabaseConnection();
             } catch (Throwable t) {
-                System.err.println("Database test warning: " + t.getMessage());
+                System.err.println("[Database Warning] Database initial test threw: " + t.getMessage());
+            }
+
+            // Bootstrap initial admin if configured and needed
+            try {
+                bootstrapInitialAdmin();
+            } catch (Throwable t) {
+                System.err.println("[Bootstrap Error] Failed to bootstrap initial admin: " + t.getMessage());
             }
 
             // Keep main thread alive indefinitely while the HTTP server is running
+            System.out.println("[Server Ready] Backend initialized and running on port " + port + ". Main thread entering keep-alive loop.");
             while (true) {
                 try {
-                    Thread.sleep(60000);
+                    Thread.sleep(10000);
                 } catch (InterruptedException e) {
+                    System.out.println("[Process Event] Main keep-alive thread interrupted: " + e.getMessage());
                     break;
                 }
             }
+            System.out.println("[Process Event] Main loop terminated.");
         } catch (Throwable t) {
-            System.err.println("Fatal error in CAMS Backend Server: " + t.getMessage());
+            System.err.println("[Process Event] Fatal error in CAMS Backend Server: " + t.getMessage());
             t.printStackTrace();
         }
     }
@@ -69,6 +83,37 @@ public class Main {
                     System.err.println("Continuing server operation; subsequent requests will retry database connection.");
                 }
             }
+        }
+    }
+
+    private static void bootstrapInitialAdmin() {
+        String adminUser = Database.getEnv("CAMS_INITIAL_ADMIN_USERNAME");
+        String adminPass = Database.getEnv("CAMS_INITIAL_ADMIN_PASSWORD");
+
+        if (adminUser == null || adminUser.trim().isEmpty() ||
+            adminPass == null || adminPass.trim().isEmpty()) {
+            return;
+        }
+
+        adminUser = adminUser.trim();
+        UserRepository userRepository = new UserRepository();
+
+        if (userRepository.hasAdminUser()) {
+            System.out.println("[Bootstrap] ADMIN user already exists. Skipping initial admin bootstrap.");
+            return;
+        }
+
+        if (userRepository.findUserByUsername(adminUser) != null) {
+            System.out.println("[Bootstrap] User '" + adminUser + "' already exists. Skipping initial admin bootstrap.");
+            return;
+        }
+
+        System.out.println("[Bootstrap] No existing ADMIN found. Bootstrapping initial administrator '" + adminUser + "'...");
+        boolean created = userRepository.createUser(adminUser, adminPass, "ADMIN");
+        if (created) {
+            System.out.println("[Bootstrap] Initial administrator created successfully.");
+        } else {
+            System.err.println("[Bootstrap] Failed to create initial administrator.");
         }
     }
 }
