@@ -40,7 +40,7 @@ public class Database {
                (System.getenv("PORT") != null && !"5000".equals(System.getenv("PORT")));
     }
 
-    private static String getEnv(String key) {
+    public static String getEnv(String key) {
         // 1. Production Railway environment variables
         String val = System.getenv(key);
         if (val != null && !val.trim().isEmpty()) {
@@ -76,7 +76,7 @@ public class Database {
             for (String k : System.getenv().keySet()) {
                 String u = k.toUpperCase();
                 if (u.contains("POSTGRES") || u.contains("DATABASE") || u.contains("PG") ||
-                    u.contains("DB") || u.contains("RAILWAY") || u.contains("PORT")) {
+                    u.contains("DB") || u.contains("RAILWAY") || u.contains("PORT") || u.contains("CAMS")) {
                     matched.add(k);
                 }
             }
