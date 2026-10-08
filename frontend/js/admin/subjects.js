@@ -5,56 +5,7 @@
  * Manages curriculum modules, instructor allocations, and enrollment quotas.
  */
 
-let subjectsData = [
-    {
-        code: "CS301",
-        name: "Data Structures",
-        department: "Computer Science",
-        semester: "Semester 6",
-        faculty: "Dr. Rajesh Sharma",
-        enrolled: 60
-    },
-    {
-        code: "CS402",
-        name: "Java Programming",
-        department: "Computer Science",
-        semester: "Semester 6",
-        faculty: "Dr. Rajesh Sharma",
-        enrolled: 60
-    },
-    {
-        code: "CS601",
-        name: "Database Management",
-        department: "Computer Science",
-        semester: "Semester 6",
-        faculty: "Dr. Rajesh Sharma",
-        enrolled: 64
-    },
-    {
-        code: "CS501",
-        name: "Operating Systems",
-        department: "Computer Science",
-        semester: "Semester 6",
-        faculty: "Prof. Sunita Rao",
-        enrolled: 58
-    },
-    {
-        code: "EC401",
-        name: "Digital Signal Processing",
-        department: "Electronics & Comm",
-        semester: "Semester 4",
-        faculty: "Dr. Vikram Mehta",
-        enrolled: 54
-    },
-    {
-        code: "IT402",
-        name: "Web Technologies",
-        department: "Information Tech",
-        semester: "Semester 4",
-        faculty: "Prof. Priya Iyer",
-        enrolled: 62
-    }
-];
+let subjectsData = [];
 
 let activeDeleteSubjectCode = null;
 
