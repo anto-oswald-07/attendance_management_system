@@ -6,52 +6,12 @@
  */
 
 let facultySubjects = [
-    {
-        code: "CS301",
-        title: "Data Structures",
-        section: "CSE-A",
-        semester: "Semester 6",
-        studentsCount: 60,
-        avgAttendance: 87.4,
-        status: "Active"
-    },
-    {
-        code: "CS402",
-        title: "Java Programming",
-        section: "CSE-A",
-        semester: "Semester 6",
-        studentsCount: 60,
-        avgAttendance: 83.2,
-        status: "Active"
-    },
-    {
-        code: "CS601",
-        title: "Database Management",
-        section: "CSE-B",
-        semester: "Semester 6",
-        studentsCount: 64,
-        avgAttendance: 91.0,
-        status: "Active"
-    }
+
+
 ];
 
 const demoRosters = {
-    "CS301": [
-        { roll: "21CSE001", name: "Aarav Sharma", attendance: 92.5, standing: "Eligible" },
-        { roll: "21CSE014", name: "Diya Deshmukh", attendance: 88.0, standing: "Eligible" },
-        { roll: "21CSE022", name: "Karan Johar", attendance: 71.4, standing: "Shortage Alert" },
-        { roll: "21CSE035", name: "Pooja Hegde", attendance: 94.0, standing: "Eligible" },
-        { roll: "21CSE042", name: "Rohan Verma", attendance: 86.4, standing: "Eligible" }
-    ],
-    "CS402": [
-        { roll: "21CSE001", name: "Aarav Sharma", attendance: 85.0, standing: "Eligible" },
-        { roll: "21CSE014", name: "Diya Deshmukh", attendance: 80.0, standing: "Eligible" },
-        { roll: "21CSE042", name: "Rohan Verma", attendance: 82.1, standing: "Eligible" }
-    ],
-    "CS601": [
-        { roll: "21CSE001", name: "Aarav Sharma", attendance: 96.0, standing: "Eligible" },
-        { roll: "21CSE042", name: "Rohan Verma", attendance: 90.6, standing: "Eligible" }
-    ]
+
 };
 
 document.addEventListener("DOMContentLoaded", () => {

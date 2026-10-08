@@ -10,33 +10,19 @@ const subjectRosters = {
     "CS301": {
         room: "Room 302",
         students: [
-            { roll: "21CSE001", name: "Aarav Sharma", cumulativePct: 92.5, status: "P", remark: "" },
-            { roll: "21CSE008", name: "Ananya Patel", cumulativePct: 84.0, status: "P", remark: "" },
-            { roll: "21CSE014", name: "Diya Deshmukh", cumulativePct: 88.0, status: "P", remark: "" },
-            { roll: "21CSE022", name: "Karan Johar", cumulativePct: 71.4, status: "A", remark: "Unexcused" },
-            { roll: "21CSE029", name: "Manish Gupta", cumulativePct: 79.5, status: "P", remark: "" },
-            { roll: "21CSE035", name: "Pooja Hegde", cumulativePct: 94.0, status: "P", remark: "" },
-            { roll: "21CSE042", name: "Rohan Verma", cumulativePct: 86.4, status: "P", remark: "" },
-            { roll: "21CSE051", name: "Siddharth Rao", cumulativePct: 73.0, status: "A", remark: "" },
-            { roll: "21CSE058", name: "Tanvi Kulkarni", cumulativePct: 91.2, status: "P", remark: "" },
-            { roll: "21CSE060", name: "Varun Dhawan", cumulativePct: 82.0, status: "P", remark: "" }
+
         ]
     },
     "CS402": {
         room: "Lab 2 (Systems Lab)",
         students: [
-            { roll: "21CSE001", name: "Aarav Sharma", cumulativePct: 85.0, status: "P", remark: "" },
-            { roll: "21CSE014", name: "Diya Deshmukh", cumulativePct: 80.0, status: "P", remark: "" },
-            { roll: "21CSE042", name: "Rohan Verma", cumulativePct: 82.1, status: "P", remark: "" },
-            { roll: "21CSE051", name: "Siddharth Rao", cumulativePct: 76.5, status: "P", remark: "" }
+
         ]
     },
     "CS601": {
         room: "Room 401",
         students: [
-            { roll: "21CSE001", name: "Aarav Sharma", cumulativePct: 96.0, status: "P", remark: "" },
-            { roll: "21CSE008", name: "Ananya Patel", cumulativePct: 89.2, status: "P", remark: "" },
-            { roll: "21CSE042", name: "Rohan Verma", cumulativePct: 90.6, status: "P", remark: "" }
+
         ]
     }
 };
