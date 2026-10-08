@@ -6,48 +6,7 @@
  */
 
 // Demo placeholder faculty list
-let facultyData = [
-    {
-        id: "FAC-CSE-104",
-        name: "Dr. Rajesh Sharma",
-        department: "Department of Computer Science",
-        email: "r.sharma@college.edu",
-        subjects: ["Data Structures (CS301)", "Java Programming (CS402)", "Database Management (CS601)"],
-        status: "Active"
-    },
-    {
-        id: "FAC-CSE-108",
-        name: "Prof. Sunita Rao",
-        department: "Department of Computer Science",
-        email: "s.rao@college.edu",
-        subjects: ["Operating Systems (CS501)", "Computer Networks (CS502)"],
-        status: "Active"
-    },
-    {
-        id: "FAC-ECE-201",
-        name: "Dr. Vikram Mehta",
-        department: "Department of Electronics",
-        email: "v.mehta@college.edu",
-        subjects: ["Digital Signal Processing (EC401)", "Microcontrollers (EC403)"],
-        status: "Active"
-    },
-    {
-        id: "FAC-IT-302",
-        name: "Prof. Priya Iyer",
-        department: "Department of Information Tech",
-        email: "p.iyer@college.edu",
-        subjects: ["Cloud Computing (IT601)", "Web Technologies (IT402)"],
-        status: "Active"
-    },
-    {
-        id: "FAC-ME-405",
-        name: "Dr. Amit Patel",
-        department: "Department of Mechanical Eng",
-        email: "a.patel@college.edu",
-        subjects: ["Thermodynamics (ME301)", "Fluid Dynamics (ME302)"],
-        status: "Active"
-    }
-];
+let facultyData = [];
 
 let activeDeleteFacultyId = null;
 
