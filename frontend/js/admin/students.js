@@ -6,62 +6,7 @@
  * Real backend API integrations should be attached where marked with TODO.
  */
 
-let studentsData = [
-    {
-        id: "21CSE001",
-        name: "Aarav Sharma",
-        department: "Computer Science",
-        semester: "Semester 6",
-        email: "aarav.sharma@college.edu",
-        attendancePct: 92.5,
-        status: "Good Standing"
-    },
-    {
-        id: "21CSE014",
-        name: "Diya Deshmukh",
-        department: "Computer Science",
-        semester: "Semester 6",
-        email: "diya.d@college.edu",
-        attendancePct: 88.0,
-        status: "Good Standing"
-    },
-    {
-        id: "21ECE022",
-        name: "Karan Johar",
-        department: "Electronics & Comm",
-        semester: "Semester 4",
-        email: "karan.j@college.edu",
-        attendancePct: 71.4,
-        status: "Shortage Alert"
-    },
-    {
-        id: "21IT009",
-        name: "Meera Nair",
-        department: "Information Tech",
-        semester: "Semester 6",
-        email: "meera.n@college.edu",
-        attendancePct: 95.0,
-        status: "Good Standing"
-    },
-    {
-        id: "21ME031",
-        name: "Nikhil Joshi",
-        department: "Mechanical Eng",
-        semester: "Semester 4",
-        email: "nikhil.j@college.edu",
-        attendancePct: 68.2,
-        status: "Shortage Alert"
-    },
-    {
-        id: "21CSE042",
-        name: "Rohan Verma",
-        department: "Computer Science",
-        semester: "Semester 6",
-        email: "rohan.v@college.edu",
-        attendancePct: 86.4,
-        status: "Good Standing"
-    }
-];
+let studentsData = [];
 
 let activeDeleteStudentId = null;
 let editingStudentId = null;
